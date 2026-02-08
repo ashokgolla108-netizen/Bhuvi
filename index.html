@@ -8,7 +8,7 @@
   body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #ff6a88, #ff99ac);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,22 +21,23 @@
   .container {
     z-index: 2;
     width: 100%;
+    padding: 20px;
   }
 
   h1 {
-    font-size: 2.6em;
-    margin-bottom: 25px;
+    font-size: 3em;
+    margin-bottom: 30px;
     animation: fadeIn 2s;
   }
 
   button {
-    padding: 14px 30px;
-    font-size: 18px;
+    padding: 16px 34px;
+    font-size: 20px;
     border: none;
-    border-radius: 30px;
+    border-radius: 40px;
     margin: 10px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
   }
 
   #yesBtn {
@@ -51,15 +52,159 @@
   }
 
   #finalMessage {
-    font-size: 1.7em;
-    margin-top: 20px;
+    font-size: 2em;
+    margin-top: 25px;
     display: none;
     animation: fadeIn 2s;
   }
 
   #photo {
-    width: 340px;
+    width: 380px;
     max-width: 90%;
+    border-radius: 25px;
+    display: none;
+    margin: 30px auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 2s;
+  }
+
+  .funText {
+    position: absolute;
+    font-size: 1.8em;
+    background: rgba(255,255,255,0.2);
+    padding: 12px 22px;
+    border-radius: 25px;
+    animation: pop 0.8s;
+    white-space: nowrap;
+    backdrop-filter: blur(6px);
+  }
+
+  .heart {
+    position: fixed;
+    color: red;
+    font-size: 26px;
+    animation: float 4s linear infinite;
+  }
+
+  @keyframes float {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<div class="container">
+  <h1>I love you Bhuvi ❤️</h1>
+
+  <button id="yesBtn" onclick="yesClicked()">I love you 😘</button>
+  <button id="noBtn" onclick="runAway()" onmouseover="runAway()">I hate you 😜</button>
+
+  <div id="finalMessage">
+    Love you too baby 🥹❤️<br>
+    Nuvvu naa life 💑
+  </div>
+
+  <img id="photo">
+</div>
+
+<script>
+  const photos = [
+    "photos/pic1.jpg",
+    "photos/pic2.jpg",
+    "photos/pic3.jpg",
+    "photos/pic4.jpg",
+    "photos/pic5.jpg",
+    "photos/pic6.jpg"
+  ];
+
+  const messages = [
+    "Siggu padindi chalu 😜",
+    "Navvuthunnav kada 😄",
+    "Ninnu chusthe prem perigipothundi ❤️",
+    "Nuvvu naa best decision 💑",
+    "Mana family ante pranam 🥹",
+    "Bhuvi = Love + Care + Home 🏡❤️",
+    "Forever maname 😘"
+  ];
+
+  let photoIndex = 0;
+  let msgIndex = 0;
+
+  function yesClicked() {
+    document.getElementById("yesBtn").style.display = "none";
+    document.getElementById("noBtn").style.display = "none";
+
+    document.getElementById("finalMessage").style.display = "block";
+    document.getElementById("bgMusic").play();
+
+    startPhotos();
+    startMessages();
+    startHearts();
+  }
+
+  function runAway() {
+    const btn = document.getElementById("noBtn");
+    btn.style.left = Math.random() * 80 + "%";
+    btn.style.top = Math.random() * 80 + "%";
+  }
+
+  function startPhotos() {
+    const img = document.getElementById("photo");
+    img.style.display = "block";
+    img.src = photos[0];
+
+    setInterval(() => {
+      photoIndex = (photoIndex + 1) % photos.length;
+      img.src = photos[photoIndex];
+    }, 20000); // 20 sec
+  }
+
+  function startMessages() {
+    setInterval(() => {
+      const text = document.createElement("div");
+      text.className = "funText";
+      text.innerText = messages[msgIndex];
+
+      text.style.left = Math.random() * 60 + "%";
+      text.style.top = Math.random() * 60 + "%";
+
+      document.body.appendChild(text);
+
+      setTimeout(() => text.remove(), 4500);
+
+      msgIndex = (msgIndex + 1) % messages.length;
+    }, 5000); // 5 sec
+  }
+
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }, 600);
+  }
+</script>
+
+</body>
+</html>    max-width: 90%;
     border-radius: 25px;
     display: none;
     margin: 25px auto;
