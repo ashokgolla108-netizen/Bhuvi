@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forever With You ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .container {
+    color: #fff;
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    animation: fadeIn 3s;
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ff5e7e;
+    color: white;
+    cursor: pointer;
+    animation: fadeIn 4s;
+  }
+
+  .message {
+    font-size: 22px;
+    margin-top: 25px;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+  }
+
+  img {
+    width: 260px;
+    border-radius: 20px;
+    margin-top: 20px;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -10px;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Every love story is beautiful…<br>but ours is my favorite ❤️</h1>
+
+  <button onclick="startLove()">Tap here, my love 💕</button>
+
+  <img id="photo" src="wife.jpg">
+
+  <div id="msg" class="message"></div>
+</div>
+
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const messages = [
+    "You are my today and all my tomorrows ❤️",
+    "With you, I found my forever 💍",
+    "Every heartbeat says your name 💕",
+    "Thank you for choosing me every day 🥰",
+    "I love you more than words can ever say ❤️"
+  ];
+
+  let i = 0;
+  let started = false;
+
+  function startLove() {
+    if (started) return;
+    started = true;
+
+    document.querySelector("button").style.display = "none";
+    document.getElementById("photo").style.display = "block";
+
+    showMessage();
+    setInterval(showMessage, 5000);
+    setInterval(createHeart, 600);
+  }
+
+  function showMessage() {
+    const msg = document.getElementById("msg");
+    msg.style.opacity = 0;
+
+    setTimeout(() => {
+      msg.innerText = messages[i];
+      msg.style.animation = "none";
+      void msg.offsetWidth;
+      msg.style.animation = "fadeIn 2s forwards";
+      i = (i + 1) % messages.length;
+    }, 400);
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }
+</script>
+
+</body>
+</html>
