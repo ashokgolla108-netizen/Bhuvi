@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>I Love You Bhuvi ❤️</title>
 
 <style>
@@ -11,7 +10,7 @@ body {
   margin: 0;
   height: 100vh;
   background: linear-gradient(135deg, #ff6a88, #ff99ac);
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   overflow: hidden;
   color: white;
 }
@@ -19,11 +18,12 @@ body {
 .container {
   text-align: center;
   padding-top: 60px;
+  position: relative;
+  z-index: 5;
 }
 
 h1 {
   font-size: 2.8rem;
-  margin-bottom: 25px;
 }
 
 button {
@@ -32,7 +32,7 @@ button {
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin: 10px;
+  margin: 12px;
 }
 
 #yesBtn {
@@ -48,7 +48,7 @@ button {
   top: 70%;
 }
 
-#message {
+#finalMsg {
   display: none;
   font-size: 2rem;
   margin-top: 20px;
@@ -61,21 +61,44 @@ button {
   border-radius: 25px;
   margin: 25px auto;
   box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  animation: zoom 1s ease;
 }
 
-.floating {
-  position: absolute;
-  font-size: 1.6rem;
+@keyframes zoom {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Floating text */
+.floatingText {
+  position: fixed;
+  font-size: 1.9rem;
   background: rgba(255,255,255,0.25);
-  padding: 10px 18px;
-  border-radius: 20px;
-  animation: fade 3.5s ease-in-out;
-  z-index: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  animation: fade 3s ease-in-out;
+  z-index: 3;
 }
 
 @keyframes fade {
   from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* Heart rain */
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  animation: fall 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -90,77 +113,110 @@ button {
   <button id="yesBtn" onclick="yesClick()">I love you 😘</button>
   <button id="noBtn" onclick="runAway()">I hate you 😜</button>
 
-  <div id="message">
+  <div id="finalMsg">
     Love you too baby 🥹❤️ <br>
-    Nuvvu naa life 💑
+    Nuvvu naa life 👨‍👩‍👧
   </div>
 
   <img id="photo">
 </div>
 
 <script>
+/* UPDATED PHOTO NAMES */
 const photos = [
-  "photos/pic1.jpg",
-  "photos/pic2.jpg",
-  "photos/pic3.jpg",
-  "photos/pic4.jpg",
-  "photos/pic5.jpg",
-  "photos/pic6.jpg"
+  "photos/img1.jpg",
+  "photos/img2.jpg",
+  "photos/img3.jpg",
+  "photos/img4.jpg",
+  "photos/img5.jpg",
+  "photos/img6.jpg",
+  "photos/img7.jpg",
+  "photos/img8.jpg"
 ];
 
+/* Romantic + funny Telugu messages */
 const texts = [
   "Siggu padindi chalu 😜",
+  "Bhuvi ante pranam ❤️",
   "Navvuthunnav kada 😄",
-  "Nuvvu naa world ❤️",
-  "Mana family ante pranam 🥹",
-  "Bhuvi = Home 🏡",
-  "Forever maname 😘"
+  "Mana family naa world 🥹",
+  "Nuvvu lekapothe nenu lenu 😘",
+  "Forever maname 💑",
+  "Naa heart owner nuvve 💕",
+  "Pichi pilla 😍"
 ];
 
-let p = 0, t = 0;
+let photoIndex = 0;
+let textIndex = 0;
+let textVisible = false;
 
+/* Hate button runs away */
 function runAway() {
   const btn = document.getElementById("noBtn");
   btn.style.left = Math.random() * 70 + "%";
   btn.style.top = Math.random() * 75 + "%";
 }
 
+/* Yes button */
 function yesClick() {
   document.getElementById("yesBtn").style.display = "none";
   document.getElementById("noBtn").style.display = "none";
-  document.getElementById("message").style.display = "block";
+  document.getElementById("finalMsg").style.display = "block";
   document.getElementById("music").play();
 
-  showPhotos();
-  showTexts();
+  startPhotos();
+  startTexts();
+  heartRain();
 }
 
-function showPhotos() {
+/* Image change every 10 sec */
+function startPhotos() {
   const img = document.getElementById("photo");
   img.style.display = "block";
   img.src = photos[0];
 
   setInterval(() => {
-    p = (p + 1) % photos.length;
-    img.src = photos[p];
-  }, 20000);
+    photoIndex = (photoIndex + 1) % photos.length;
+    img.src = photos[photoIndex];
+  }, 10000);
 }
 
-function showTexts() {
+/* One text every 3 sec (NO overlap) */
+function startTexts() {
   setInterval(() => {
+    if (textVisible) return;
+
+    textVisible = true;
     const div = document.createElement("div");
-    div.className = "floating";
-    div.innerText = texts[t];
+    div.className = "floatingText";
+    div.innerText = texts[textIndex];
 
     div.style.left = Math.random() * 60 + "%";
     div.style.top = Math.random() * 60 + "%";
 
     document.body.appendChild(div);
 
-    setTimeout(() => div.remove(), 3500);
+    setTimeout(() => {
+      div.remove();
+      textVisible = false;
+    }, 3000);
 
-    t = (t + 1) % texts.length;
-  }, 5000);
+    textIndex = (textIndex + 1) % texts.length;
+  }, 3200);
+}
+
+/* Hearts & emoji rain */
+function heartRain() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = Math.random() > 0.5 ? "❤️" : "😘";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 15 + 15 + "px";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 300);
 }
 </script>
 
