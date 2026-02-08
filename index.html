@@ -2,89 +2,98 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>I Love You Bhuvi ❤️</title>
+<title>Bhuvi ❤️ Ashok</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(180deg, #ff9a9e, #fad0c4);
-    overflow: hidden;
-    text-align: center;
-    color: #fff;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 /* Title */
 h1 {
-    font-size: 2.6rem;
-    margin-top: 30px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
 /* Buttons */
 .buttons {
-    margin-top: 30px;
+  display: flex;
+  gap: 20px;
 }
 
 button {
-    font-size: 1.4rem;
-    padding: 14px 30px;
-    margin: 15px;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: transform 0.2s;
+  padding: 14px 28px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-#yesBtn {
-    background: #ff1744;
-    color: white;
+#yes {
+  background: #ff0033;
+  color: #fff;
 }
 
-#noBtn {
-    background: #fff;
-    color: #ff1744;
-    position: absolute;
-}
-
-button:active {
-    transform: scale(0.95);
-}
-
-/* Message box */
-#messageBox {
-    margin-top: 30px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ff0033;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    min-height: 80px;
-    padding: 10px;
-    display: none;
+#no {
+  background: #fff;
+  color: #ff0033;
+  position: absolute;
 }
 
 /* Image */
-#photo {
-    width: 80%;
-    max-width: 350px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    display: none;
+#imgBox {
+  width: 85%;
+  max-width: 360px;
+  border-radius: 25px;
+  margin-top: 25px;
+  display: none;
+  animation: fadeZoom 1s ease;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+@keyframes fadeZoom {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Message */
+#msg {
+  margin-top: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff0033;
+  text-align: center;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  display: none;
 }
 
 /* Hearts */
 .heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 24px;
-    animation: floatUp linear forwards;
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: rise linear forwards;
 }
 
-@keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-110vh); opacity: 0; }
+@keyframes rise {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 </style>
 </head>
@@ -94,76 +103,77 @@ button:active {
 <h1>I Love You Bhuvi ❤️</h1>
 
 <div class="buttons">
-    <button id="yesBtn">❤️ Love You Too</button>
-    <button id="noBtn">😜 Hate You</button>
+  <button id="yes">Love You Too ❤️</button>
+  <button id="no">Hate You 😜</button>
 </div>
 
-<div id="messageBox"></div>
-<img id="photo">
+<img id="imgBox">
+<div id="msg"></div>
 
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const messageBox = document.getElementById("messageBox");
-const photo = document.getElementById("photo");
-const song = document.getElementById("song");
-
-/* Hate button runs away */
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+/* Escape button */
+const noBtn = document.getElementById("no");
+noBtn.addEventListener("mouseenter", () => {
+  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+  noBtn.style.top  = Math.random() * (window.innerHeight - 60) + "px";
 });
 
-/* Messages */
-const messages = [
-    "Bhuvi ❤️ nuvvu na pranam",
-    "Siggu padindi chalu 😂💖",
-    "Nee smile kosam life antha ❤️",
-    "Nuvvu + Nenu + Mana Papa = World 🌍❤️",
-    "Forever naa side undu 🫂💕",
-    "Love you ra bangaram 😘"
+/* Data */
+const images = [
+  "images/img1.jpg","images/img2.jpg","images/img3.jpg","images/img4.jpg",
+  "images/img5.jpg","images/img6.jpg","images/img7.jpg","images/img8.jpg"
 ];
 
-/* Images */
-let imgIndex = 1;
-let msgIndex = 0;
+const messages = [
+  "Bhuvi ❤️ nuvvu na pranam",
+  "Siggu padindi chalu ra 😂💖",
+  "Nuvvu lekunda nenu ledu ❤️",
+  "Mana family naa world 🌍",
+  "Ashok + Bhuvi = Forever 💞",
+  "Love you bangaram 😘"
+];
 
-/* YES click */
-yesBtn.onclick = () => {
-    document.querySelector(".buttons").style.display = "none";
-    messageBox.style.display = "block";
-    photo.style.display = "block";
-    song.play();
-    startHearts();
-    showContent();
+let i = 0;
+let j = 0;
+
+const imgBox = document.getElementById("imgBox");
+const msgBox = document.getElementById("msg");
+const song = document.getElementById("song");
+
+/* YES */
+document.getElementById("yes").onclick = () => {
+  document.querySelector(".buttons").style.display = "none";
+  imgBox.style.display = "block";
+  msgBox.style.display = "block";
+  song.play();
+  startHearts();
+  cycle();
 };
 
-/* Show image 10s & message 3s */
-function showContent() {
-    photo.src = `images/img${imgIndex}.jpg`;
-    imgIndex = imgIndex < 8 ? imgIndex + 1 : 1;
+/* Cycle safely */
+function cycle() {
+  imgBox.src = images[i];
+  msgBox.textContent = messages[j];
 
-    messageBox.innerHTML = messages[msgIndex];
-    msgIndex = (msgIndex + 1) % messages.length;
+  i = (i + 1) % images.length;
+  j = (j + 1) % messages.length;
 
-    setTimeout(showContent, 10000);
+  setTimeout(cycle, 10000);
 }
 
 /* Hearts rain */
 function startHearts() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-    }, 300);
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (3 + Math.random()*3) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }, 250);
 }
 </script>
 
