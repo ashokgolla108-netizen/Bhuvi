@@ -5,113 +5,83 @@
 <title>I Love You Bhuvi ❤️</title>
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff6a88, #ff99ac);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-    text-align: center;
-    color: white;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff6a88, #ff99ac);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  color: white;
+}
 
-  .container {
-    z-index: 2;
-    width: 100%;
-    padding: 20px;
-  }
+.container {
+  text-align: center;
+  width: 100%;
+}
 
-  h1 {
-    font-size: 3em;
-    margin-bottom: 30px;
-    animation: fadeIn 2s;
-  }
+h1 {
+  font-size: 3rem;
+  margin-bottom: 25px;
+}
 
-  button {
-    padding: 16px 34px;
-    font-size: 20px;
-    border: none;
-    border-radius: 40px;
-    margin: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+button {
+  padding: 16px 32px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
 
-  #yesBtn {
-    background: #ff2d55;
-    color: white;
-  }
+#yesBtn {
+  background: #ff2d55;
+  color: white;
+}
 
-  #noBtn {
-    background: #444;
-    color: white;
-    position: absolute;
-  }
+#noBtn {
+  background: #333;
+  color: white;
+  position: absolute;
+  left: 55%;
+  top: 65%;
+}
 
-  #finalMessage {
-    font-size: 2em;
-    margin-top: 25px;
-    display: none;
-    animation: fadeIn 2s;
-  }
+#finalMessage {
+  display: none;
+  font-size: 2rem;
+  margin-top: 20px;
+}
 
-  #photo {
-    width: 380px;
-    max-width: 90%;
-    border-radius: 25px;
-    display: none;
-    margin: 30px auto;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    animation: fadeIn 2s;
-  }
+#photo {
+  display: none;
+  width: 360px;
+  max-width: 90%;
+  margin-top: 25px;
+  border-radius: 25px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
 
-  .funText {
-    position: absolute;
-    font-size: 1.8em;
-    background: rgba(255,255,255,0.2);
-    padding: 12px 22px;
-    border-radius: 25px;
-    animation: pop 0.8s;
-    white-space: nowrap;
-    backdrop-filter: blur(6px);
-  }
-
-  .heart {
-    position: fixed;
-    color: red;
-    font-size: 26px;
-    animation: float 4s linear infinite;
-  }
-
-  @keyframes float {
-    from { transform: translateY(100vh); opacity: 1; }
-    to { transform: translateY(-10vh); opacity: 0; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes pop {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
+.funText {
+  position: absolute;
+  font-size: 1.8rem;
+  background: rgba(255,255,255,0.2);
+  padding: 12px 20px;
+  border-radius: 25px;
+}
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" src="song.mp3" loop></audio>
+<audio id="music" src="song.mp3" loop></audio>
 
 <div class="container">
   <h1>I love you Bhuvi ❤️</h1>
 
   <button id="yesBtn" onclick="yesClicked()">I love you 😘</button>
-  <button id="noBtn" onclick="runAway()" onmouseover="runAway()">I hate you 😜</button>
+  <button id="noBtn" onmouseenter="runAway()" onclick="runAway()">I hate you 😜</button>
 
   <div id="finalMessage">
     Love you too baby 🥹❤️<br>
@@ -122,220 +92,71 @@
 </div>
 
 <script>
-  const photos = [
-    "photos/pic1.jpg",
-    "photos/pic2.jpg",
-    "photos/pic3.jpg",
-    "photos/pic4.jpg",
-    "photos/pic5.jpg",
-    "photos/pic6.jpg"
-  ];
+const photos = [
+  "photos/pic1.jpg",
+  "photos/pic2.jpg",
+  "photos/pic3.jpg",
+  "photos/pic4.jpg",
+  "photos/pic5.jpg",
+  "photos/pic6.jpg"
+];
 
-  const messages = [
-    "Siggu padindi chalu 😜",
-    "Navvuthunnav kada 😄",
-    "Ninnu chusthe prem perigipothundi ❤️",
-    "Nuvvu naa best decision 💑",
-    "Mana family ante pranam 🥹",
-    "Bhuvi = Love + Care + Home 🏡❤️",
-    "Forever maname 😘"
-  ];
+const texts = [
+  "Siggu padindi chalu 😜",
+  "Navvuthunnav kada 😄",
+  "Ninnu chusthe prem perigipothundi ❤️",
+  "Nuvvu naa best decision 💑",
+  "Mana family ante pranam 🥹",
+  "Bhuvi = Home 🏡❤️",
+  "Forever maname 😘"
+];
 
-  let photoIndex = 0;
-  let msgIndex = 0;
+let photoIndex = 0;
+let textIndex = 0;
 
-  function yesClicked() {
-    document.getElementById("yesBtn").style.display = "none";
-    document.getElementById("noBtn").style.display = "none";
+function runAway() {
+  const btn = document.getElementById("noBtn");
+  btn.style.left = Math.random() * 80 + "%";
+  btn.style.top  = Math.random() * 80 + "%";
+}
 
-    document.getElementById("finalMessage").style.display = "block";
-    document.getElementById("bgMusic").play();
+function yesClicked() {
+  document.getElementById("yesBtn").style.display = "none";
+  document.getElementById("noBtn").style.display = "none";
+  document.getElementById("finalMessage").style.display = "block";
+  document.getElementById("music").play();
 
-    startPhotos();
-    startMessages();
-    startHearts();
-  }
+  startPhotos();
+  startTexts();
+}
 
-  function runAway() {
-    const btn = document.getElementById("noBtn");
-    btn.style.left = Math.random() * 80 + "%";
-    btn.style.top = Math.random() * 80 + "%";
-  }
+function startPhotos() {
+  const img = document.getElementById("photo");
+  img.style.display = "block";
+  img.src = photos[0];
 
-  function startPhotos() {
-    const img = document.getElementById("photo");
-    img.style.display = "block";
-    img.src = photos[0];
+  setInterval(() => {
+    photoIndex = (photoIndex + 1) % photos.length;
+    img.src = photos[photoIndex];
+  }, 20000); // every 20 sec
+}
 
-    setInterval(() => {
-      photoIndex = (photoIndex + 1) % photos.length;
-      img.src = photos[photoIndex];
-    }, 20000); // 20 sec
-  }
+function startTexts() {
+  setInterval(() => {
+    const t = document.createElement("div");
+    t.className = "funText";
+    t.innerText = texts[textIndex];
 
-  function startMessages() {
-    setInterval(() => {
-      const text = document.createElement("div");
-      text.className = "funText";
-      text.innerText = messages[msgIndex];
+    t.style.left = Math.random() * 60 + "%";
+    t.style.top  = Math.random() * 60 + "%";
 
-      text.style.left = Math.random() * 60 + "%";
-      text.style.top = Math.random() * 60 + "%";
+    document.body.appendChild(t);
 
-      document.body.appendChild(text);
+    setTimeout(() => t.remove(), 3500);
 
-      setTimeout(() => text.remove(), 4500);
-
-      msgIndex = (msgIndex + 1) % messages.length;
-    }, 5000); // 5 sec
-  }
-
-  function startHearts() {
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 4000);
-    }, 600);
-  }
-</script>
-
-</body>
-</html>    max-width: 90%;
-    border-radius: 25px;
-    display: none;
-    margin: 25px auto;
-    animation: fadeIn 2s;
-  }
-
-  .funText {
-    position: absolute;
-    font-size: 1.2em;
-    animation: fadeIn 1s;
-    white-space: nowrap;
-  }
-
-  .heart {
-    position: fixed;
-    color: red;
-    font-size: 22px;
-    animation: float 4s linear infinite;
-  }
-
-  @keyframes float {
-    from { transform: translateY(100vh); opacity: 1; }
-    to { transform: translateY(-10vh); opacity: 0; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-</style>
-</head>
-
-<body>
-
-<audio id="bgMusic" src="song.mp3" loop></audio>
-
-<div class="container">
-  <h1>I love you Bhuvi ❤️</h1>
-
-  <button id="yesBtn" onclick="yesClicked()">I love you 😘</button>
-  <button id="noBtn" onmouseover="moveNo()">I hate you 😜</button>
-
-  <div id="finalMessage">
-    Love you too baby 🥹❤️<br>
-    Nuvvu naa life ❤️
-  </div>
-
-  <img id="photo">
-</div>
-
-<script>
-  const photos = [
-    "photos/pic.jpg",
-    "photos/pic1.jpg",
-    "photos/pic2.jpg",
-    "photos/pic3.jpg",
-    "photos/pic4.jpg",
-    "photos/pic5.jpg",
-    "photos/pic6.jpg"
-  ];
-
-  const messages = [
-    "Siggu padindi chalu 😜",
-    "Navvuthunnav kada 😄",
-    "Ila chusthe prem perigipothundi ❤️",
-    "Nuvvu na life lo best decision 💑",
-    "Mana family ante naaku pranam 🥹",
-    "Bhuvi = Love, Care, Home 🏡❤️",
-    "Forever maname 😘"
-  ];
-
-  let photoIndex = 0;
-  let msgIndex = 0;
-
-  function yesClicked() {
-    document.getElementById("yesBtn").style.display = "none";
-    document.getElementById("noBtn").style.display = "none";
-
-    document.getElementById("finalMessage").style.display = "block";
-    document.getElementById("bgMusic").play();
-
-    startPhotos();
-    startMessages();
-    startHearts();
-  }
-
-  function moveNo() {
-    const btn = document.getElementById("noBtn");
-    btn.style.left = Math.random() * 80 + "%";
-    btn.style.top = Math.random() * 80 + "%";
-  }
-
-  function startPhotos() {
-    const img = document.getElementById("photo");
-    img.style.display = "block";
-    img.src = photos[0];
-
-    setInterval(() => {
-      photoIndex = (photoIndex + 1) % photos.length;
-      img.src = photos[photoIndex];
-    }, 20000); // 20 sec
-  }
-
-  function startMessages() {
-    setInterval(() => {
-      const text = document.createElement("div");
-      text.className = "funText";
-      text.innerText = messages[msgIndex];
-
-      text.style.left = Math.random() * 70 + "%";
-      text.style.top = Math.random() * 70 + "%";
-
-      document.body.appendChild(text);
-
-      setTimeout(() => text.remove(), 4000);
-
-      msgIndex = (msgIndex + 1) % messages.length;
-    }, 5000); // 5 sec
-  }
-
-  function startHearts() {
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 4000);
-    }, 600);
-  }
+    textIndex = (textIndex + 1) % texts.length;
+  }, 5000); // every 5 sec
+}
 </script>
 
 </body>
