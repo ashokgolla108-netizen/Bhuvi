@@ -9,28 +9,30 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  background:linear-gradient(135deg,#ff4e7a,#ff85a1);
   overflow:hidden;
   text-align:center;
   color:white;
 }
 
+/* Title */
 h1{
-  margin-top:30px;
-  font-size:2.6rem;
+  margin-top:26px;
+  font-size:2.4rem;
   text-shadow:0 4px 12px rgba(0,0,0,.4);
 }
 
+/* Buttons */
 .buttons{
   margin-top:25px;
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:18px;
 }
 
 button{
-  padding:15px 28px;
-  font-size:1.3rem;
+  padding:15px 30px;
+  font-size:1.25rem;
   border:none;
   border-radius:50px;
   cursor:pointer;
@@ -49,39 +51,40 @@ button{
 
 /* Image */
 #photo{
-  width:85%;
+  width:88%;
   max-width:360px;
-  border-radius:25px;
+  border-radius:26px;
   margin:22px auto;
   display:none;
   box-shadow:0 20px 45px rgba(0,0,0,.45);
-  animation:fadeIn 1s ease;
+  transition:opacity .8s ease;
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(.95);}
-  to{opacity:1;transform:scale(1);}
-}
-
-/* Fixed message */
+/* Fixed love text */
 #fixedMsg{
   display:none;
-  font-size:2rem;
+  font-size:1.9rem;
   font-weight:bold;
   color:#ff0033;
-  margin-top:10px;
+  margin-top:6px;
   text-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
 /* Rotating messages */
 #message{
   display:none;
-  font-size:1.55rem;
-  margin-top:14px;
-  padding:10px 20px;
-  background:rgba(255,0,60,.85);
-  border-radius:25px;
-  animation:fadeIn 1s ease;
+  font-size:1.6rem;
+  margin:14px auto;
+  padding:14px 22px;
+  max-width:90%;
+  background:rgba(255,0,60,.88);
+  border-radius:30px;
+  animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 /* Hearts */
@@ -124,17 +127,17 @@ const images=[
 /* Messages */
 const messages=[
  "Bhuvi ❤️ nuvvu naa pranam",
- "Siggu padindi chalu 😂💖",
- "Nuvvu navvite life set 😍",
- "Bangaram nuvve 😘",
- "Mana family naa world 🏡❤️",
+ "Siggu padindi chalu 😜💖",
  "Nee smile chuste heart melt 🫠",
+ "Bangaram nuvve ra 😘",
+ "Mana family naa world 🏡❤️",
+ "Nuvvu navvite life set 😍",
+ "Ashok ki Bhuvi ante pranam 🥹",
  "Kopam aina cute 😜",
  "Forever ante nuvve 💞",
- "Ashok ki Bhuvi ante pranam 🥹",
- "Nenu lucky husband 😎❤️",
- "Nee pakkana time fly 🕊️",
  "Queen of my heart 👑💖",
+ "Nee pakkana time fly 🕊️",
+ "Nenu lucky husband 😎❤️",
  "Amma + wife = superwoman 💪❤️",
  "Naa happiness ki reason nuvve 😊",
  "Lifetime subscription to you 💍💞"
@@ -148,7 +151,7 @@ const message=document.getElementById("message");
 const fixedMsg=document.getElementById("fixedMsg");
 const song=document.getElementById("song");
 
-/* Hate button escapes FAR */
+/* Hate button runs FAR */
 const noBtn=document.getElementById("no");
 function escapeFar(){
   const x=Math.random()*500-250;
@@ -171,7 +174,7 @@ document.getElementById("yes").onclick=()=>{
   messageLoop();
 };
 
-/* 🖼 Image changes every 10 sec (NO DISAPPEAR) */
+/* 🖼 Image change every 10 sec (no disappear) */
 function imageLoop(){
   photo.src=images[imgIndex];
   imgIndex=(imgIndex+1)%images.length;
@@ -186,18 +189,22 @@ function imageLoop(){
   },10000);
 }
 
-/* 💬 Message every 3 sec */
+/* 💬 Message: visible 5s, gap 2s = 7s */
 function messageLoop(){
-  message.textContent=messages[msgIndex];
-  msgIndex=(msgIndex+1)%messages.length;
-
-  setInterval(()=>{
+  function showMessage(){
     message.textContent=messages[msgIndex];
+    message.style.display="block";
+
+    setTimeout(()=>message.style.display="none",5000);
+
     msgIndex=(msgIndex+1)%messages.length;
-  },3000);
+  }
+
+  showMessage();
+  setInterval(showMessage,7000);
 }
 
-/* ❤️ Hearts rain */
+/* ❤️ Heart rain */
 function startHearts(){
   setInterval(()=>{
     const h=document.createElement("div");
