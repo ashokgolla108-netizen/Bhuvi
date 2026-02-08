@@ -25,9 +25,8 @@ h1{
 /* Buttons */
 .buttons{
   margin-top:25px;
-  display:flex;
-  justify-content:center;
-  gap:18px;
+  position:relative;
+  height:80px;
 }
 
 button{
@@ -46,7 +45,7 @@ button{
 #no{
   background:white;
   color:#ff0033;
-  position:relative;
+  position:absolute;
 }
 
 /* Image */
@@ -60,7 +59,7 @@ button{
   transition:opacity .8s ease;
 }
 
-/* Fixed love text */
+/* Fixed message */
 #fixedMsg{
   display:none;
   font-size:1.9rem;
@@ -70,7 +69,7 @@ button{
   text-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
-/* Rotating messages */
+/* Rotating message */
 #message{
   display:none;
   font-size:1.6rem;
@@ -79,12 +78,6 @@ button{
   max-width:90%;
   background:rgba(255,0,60,.88);
   border-radius:30px;
-  animation:fadeIn .8s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
 }
 
 /* Hearts */
@@ -151,17 +144,28 @@ const message=document.getElementById("message");
 const fixedMsg=document.getElementById("fixedMsg");
 const song=document.getElementById("song");
 
-/* Hate button runs FAR */
+/* 😜 HATE YOU BUTTON – INFINITE RUN AWAY */
 const noBtn=document.getElementById("no");
-function escapeFar(){
-  const x=Math.random()*500-250;
-  const y=Math.random()*500-250;
-  noBtn.style.transform=`translate(${x}px,${y}px)`;
-}
-noBtn.addEventListener("touchstart",escapeFar);
-noBtn.addEventListener("click",escapeFar);
 
-/* Love click */
+function moveNoButton(){
+  const padding=20;
+  const maxX=window.innerWidth-noBtn.offsetWidth-padding;
+  const maxY=window.innerHeight-noBtn.offsetHeight-padding;
+
+  const x=Math.random()*maxX;
+  const y=Math.random()*maxY;
+
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+}
+
+noBtn.addEventListener("mouseenter",moveNoButton);
+noBtn.addEventListener("touchstart",moveNoButton);
+noBtn.addEventListener("click",moveNoButton);
+
+moveNoButton();
+
+/* LOVE CLICK */
 document.getElementById("yes").onclick=()=>{
   document.querySelector(".buttons").style.display="none";
   photo.style.display="block";
@@ -174,7 +178,7 @@ document.getElementById("yes").onclick=()=>{
   messageLoop();
 };
 
-/* 🖼 Image change every 10 sec (no disappear) */
+/* 🖼 Images every 10 sec (no disappear) */
 function imageLoop(){
   photo.src=images[imgIndex];
   imgIndex=(imgIndex+1)%images.length;
@@ -189,9 +193,9 @@ function imageLoop(){
   },10000);
 }
 
-/* 💬 Message: visible 5s, gap 2s = 7s */
+/* 💬 Message: show 5s, gap 2s */
 function messageLoop(){
-  function showMessage(){
+  function showMsg(){
     message.textContent=messages[msgIndex];
     message.style.display="block";
 
@@ -200,11 +204,11 @@ function messageLoop(){
     msgIndex=(msgIndex+1)%messages.length;
   }
 
-  showMessage();
-  setInterval(showMessage,7000);
+  showMsg();
+  setInterval(showMsg,7000);
 }
 
-/* ❤️ Heart rain */
+/* ❤️ Hearts rain */
 function startHearts(){
   setInterval(()=>{
     const h=document.createElement("div");
