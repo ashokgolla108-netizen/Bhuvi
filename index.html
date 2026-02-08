@@ -6,87 +6,95 @@
 <title>Bhuvi ❤️ Ashok</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
-  overflow: hidden;
-  text-align: center;
-  color: white;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  overflow:hidden;
+  text-align:center;
+  color:white;
 }
 
-/* Title */
-h1 {
-  margin-top: 40px;
-  font-size: 2.6rem;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+h1{
+  margin-top:30px;
+  font-size:2.6rem;
+  text-shadow:0 4px 12px rgba(0,0,0,.4);
 }
 
-/* Buttons */
-.buttons {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
+.buttons{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
 }
 
-button {
-  padding: 14px 24px;
-  font-size: 1.3rem;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
+button{
+  padding:15px 28px;
+  font-size:1.3rem;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
 }
 
-#yes {
-  background: #ff0033;
-  color: white;
+#yes{
+  background:#ff0033;
+  color:white;
 }
 
-#no {
-  background: white;
-  color: #ff0033;
-  position: relative;
+#no{
+  background:white;
+  color:#ff0033;
+  position:relative;
 }
 
 /* Image */
-#photo {
-  width: 85%;
-  max-width: 360px;
-  border-radius: 22px;
-  margin: 30px auto 10px;
-  display: none;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  animation: fadeZoom 1s ease;
+#photo{
+  width:85%;
+  max-width:360px;
+  border-radius:25px;
+  margin:22px auto;
+  display:none;
+  box-shadow:0 20px 45px rgba(0,0,0,.45);
+  animation:fadeIn 1s ease;
 }
 
-@keyframes fadeZoom {
-  from {opacity:0; transform:scale(0.85);}
-  to {opacity:1; transform:scale(1);}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.9);}
+  to{opacity:1;transform:scale(1);}
 }
 
-/* Message */
-#message {
-  display: none;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #ff0033;
-  padding: 10px 20px;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+/* Fixed message */
+#fixedMsg{
+  display:none;
+  font-size:2rem;
+  font-weight:bold;
+  color:#ff0033;
+  margin-top:10px;
+  text-shadow:0 3px 10px rgba(0,0,0,.4);
+}
+
+/* Rotating messages */
+#message{
+  display:none;
+  font-size:1.55rem;
+  margin-top:14px;
+  padding:10px 20px;
+  background:rgba(255,0,60,.85);
+  border-radius:25px;
+  animation:fadeIn 1s ease;
 }
 
 /* Hearts */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 22px;
-  animation: floatUp linear forwards;
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:22px;
+  animation:floatUp linear forwards;
 }
 
-@keyframes floatUp {
-  from {transform: translateY(0); opacity:1;}
-  to {transform: translateY(-120vh); opacity:0;}
+@keyframes floatUp{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-120vh);opacity:0;}
 }
 </style>
 </head>
@@ -101,77 +109,103 @@ button {
 </div>
 
 <img id="photo">
+<div id="fixedMsg">Love you baby ❤️🥰</div>
 <div id="message"></div>
 
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-/* Correct image path */
-const images = [
+/* Images */
+const images=[
  "photos/img1.jpg","photos/img2.jpg","photos/img3.jpg","photos/img4.jpg",
  "photos/img5.jpg","photos/img6.jpg","photos/img7.jpg","photos/img8.jpg"
 ];
 
-const messages = [
+/* 15+ Messages */
+const messages=[
  "Bhuvi ❤️ nuvvu naa pranam",
  "Siggu padindi chalu 😂💖",
- "Nuvvu lekunda nenu ledu",
- "Mana family naa world 🌍",
- "Ashok + Bhuvi = Forever 💞",
- "Bangaram nuvve 😘"
+ "Nuvvu navvite life set 😍",
+ "Bangaram nuvve 😘",
+ "Mana family naa world 🏡❤️",
+ "Nee smile chuste heart melt 🫠",
+ "Kopam aina cute 😜",
+ "Forever ante nuvve 💞",
+ "Ashok ki Bhuvi ante pranam 🥹",
+ "Nenu lucky husband 😎❤️",
+ "Nee pakkana time fly 🕊️",
+ "Queen of my heart 👑💖",
+ "Amma + wife = superwoman 💪❤️",
+ "Naa happiness ki reason nuvve 😊",
+ "Lifetime subscription to you 💍💞"
 ];
 
-let imgIndex = 0;
-let msgIndex = 0;
+let imgIndex=0;
+let msgIndex=0;
 
-const photo = document.getElementById("photo");
-const message = document.getElementById("message");
-const song = document.getElementById("song");
+const photo=document.getElementById("photo");
+const message=document.getElementById("message");
+const fixedMsg=document.getElementById("fixedMsg");
+const song=document.getElementById("song");
 
-/* Hate button escape (mobile safe) */
-const noBtn = document.getElementById("no");
-function escape() {
-  const x = Math.random() * 120 - 60;
-  const y = Math.random() * 120 - 60;
-  noBtn.style.transform = `translate(${x}px,${y}px)`;
+/* Hate button escapes FAR */
+const noBtn=document.getElementById("no");
+function escapeFar(){
+  const x=Math.random()*400-200;
+  const y=Math.random()*400-200;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
 }
-noBtn.addEventListener("touchstart", escape);
-noBtn.addEventListener("click", escape);
+noBtn.addEventListener("touchstart",escapeFar);
+noBtn.addEventListener("click",escapeFar);
 
-/* Start romance */
-document.getElementById("yes").onclick = () => {
-  document.querySelector(".buttons").style.display = "none";
-  photo.style.display = "block";
-  message.style.display = "block";
+/* Love click */
+document.getElementById("yes").onclick=()=>{
+  document.querySelector(".buttons").style.display="none";
+  photo.style.display="block";
+  fixedMsg.style.display="block";
+  message.style.display="block";
   song.play();
+
   startHearts();
-  cycleImages();
-  cycleMessages();
+  imageLoop();
+  messageLoop();
 };
 
-function cycleImages() {
-  photo.src = images[imgIndex];
-  imgIndex = (imgIndex + 1) % images.length;
-  setTimeout(cycleImages, 10000);
+/* 🖼 Image: show 3 sec, hide 7 sec */
+function imageLoop(){
+  function showImage(){
+    photo.src=images[imgIndex];
+    photo.style.display="block";
+
+    setTimeout(()=>photo.style.display="none",3000);
+
+    imgIndex=(imgIndex+1)%images.length;
+  }
+  showImage();
+  setInterval(showImage,10000);
 }
 
-function cycleMessages() {
-  message.textContent = messages[msgIndex];
-  msgIndex = (msgIndex + 1) % messages.length;
-  setTimeout(cycleMessages, 3000);
+/* 💬 Message every 3 sec */
+function messageLoop(){
+  function showMsg(){
+    message.textContent=messages[msgIndex];
+    msgIndex=(msgIndex+1)%messages.length;
+  }
+  showMsg();
+  setInterval(showMsg,3000);
 }
 
-/* Hearts rain */
-function startHearts() {
-  setInterval(() => {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerText = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (3 + Math.random()*3) + "s";
+/* ❤️ Hearts rain */
+function startHearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText=Math.random()>0.5?"❤️":"💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*3)+"s";
     document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-  }, 300);
+    setTimeout(()=>h.remove(),6000);
+  },250);
 }
 </script>
 
