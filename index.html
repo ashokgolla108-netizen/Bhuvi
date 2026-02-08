@@ -59,7 +59,7 @@ button{
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:scale(.9);}
+  from{opacity:0;transform:scale(.95);}
   to{opacity:1;transform:scale(1);}
 }
 
@@ -121,7 +121,7 @@ const images=[
  "photos/img5.jpg","photos/img6.jpg","photos/img7.jpg","photos/img8.jpg"
 ];
 
-/* 15+ Messages */
+/* Messages */
 const messages=[
  "Bhuvi ❤️ nuvvu naa pranam",
  "Siggu padindi chalu 😂💖",
@@ -151,8 +151,8 @@ const song=document.getElementById("song");
 /* Hate button escapes FAR */
 const noBtn=document.getElementById("no");
 function escapeFar(){
-  const x=Math.random()*400-200;
-  const y=Math.random()*400-200;
+  const x=Math.random()*500-250;
+  const y=Math.random()*500-250;
   noBtn.style.transform=`translate(${x}px,${y}px)`;
 }
 noBtn.addEventListener("touchstart",escapeFar);
@@ -171,28 +171,30 @@ document.getElementById("yes").onclick=()=>{
   messageLoop();
 };
 
-/* 🖼 Image: show 3 sec, hide 7 sec */
+/* 🖼 Image changes every 10 sec (NO DISAPPEAR) */
 function imageLoop(){
-  function showImage(){
-    photo.src=images[imgIndex];
-    photo.style.display="block";
+  photo.src=images[imgIndex];
+  imgIndex=(imgIndex+1)%images.length;
 
-    setTimeout(()=>photo.style.display="none",3000);
-
-    imgIndex=(imgIndex+1)%images.length;
-  }
-  showImage();
-  setInterval(showImage,10000);
+  setInterval(()=>{
+    photo.style.opacity=0;
+    setTimeout(()=>{
+      photo.src=images[imgIndex];
+      imgIndex=(imgIndex+1)%images.length;
+      photo.style.opacity=1;
+    },500);
+  },10000);
 }
 
 /* 💬 Message every 3 sec */
 function messageLoop(){
-  function showMsg(){
+  message.textContent=messages[msgIndex];
+  msgIndex=(msgIndex+1)%messages.length;
+
+  setInterval(()=>{
     message.textContent=messages[msgIndex];
     msgIndex=(msgIndex+1)%messages.length;
-  }
-  showMsg();
-  setInterval(showMsg,3000);
+  },3000);
 }
 
 /* ❤️ Hearts rain */
