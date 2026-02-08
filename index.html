@@ -2,141 +2,180 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Forever With You ❤️</title>
+<title>I Love You Bhuvi ❤️</title>
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-  }
+body{
+    margin:0;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+}
 
-  .container {
-    color: #fff;
-    padding: 20px;
-    max-width: 90%;
-  }
+.box{
+    color:white;
+    max-width:95%;
+    padding:20px;
+}
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    animation: fadeIn 3s;
-  }
+h1{
+    font-size:32px;
+    margin-bottom:20px;
+    animation:fade 2s;
+}
 
-  button {
-    padding: 12px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    background: #ff5e7e;
-    color: white;
-    cursor: pointer;
-    animation: fadeIn 4s;
-  }
+button{
+    padding:12px 26px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:10px;
+}
 
-  .message {
-    font-size: 22px;
-    margin-top: 25px;
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-  }
+#yesBtn{
+    background:#ff4d6d;
+    color:white;
+}
 
-  img {
-    width: 260px;
-    border-radius: 20px;
-    margin-top: 20px;
-    display: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
+#noBtn{
+    background:#333;
+    color:white;
+    position:absolute;
+}
 
-  .heart {
-    position: absolute;
-    bottom: -10px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-  }
+img{
+    width:260px;
+    border-radius:20px;
+    margin:20px auto;
+    display:none;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+#message{
+    font-size:22px;
+    margin-top:15px;
+    min-height:60px;
+    animation:fade 2s;
+}
 
-  @keyframes float {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-100vh); opacity: 0; }
-  }
+.heart{
+    position:absolute;
+    bottom:-10px;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes float{
+    from{transform:translateY(0); opacity:1;}
+    to{transform:translateY(-100vh); opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>Every love story is beautiful…<br>but ours is my favorite ❤️</h1>
+<div class="box">
+    <h1>I Love You Bhuvi ❤️</h1>
 
-  <button onclick="startLove()">Tap here, my love 💕</button>
+    <button id="yesBtn" onclick="yesClicked()">I love you too 😘</button>
+    <button id="noBtn" onmouseover="moveNo()">I hate you 😜</button>
 
-  <img id="photo" src="wife.jpg">
+    <img id="photo" src="">
 
-  <div id="msg" class="message"></div>
+    <div id="message"></div>
 </div>
 
-<audio autoplay loop>
-  <source src="song.mp3" type="audio/mpeg">
+<audio id="music" loop>
+    <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  const messages = [
-    "You are my today and all my tomorrows ❤️",
-    "With you, I found my forever 💍",
-    "Every heartbeat says your name 💕",
-    "Thank you for choosing me every day 🥰",
-    "I love you more than words can ever say ❤️"
-  ];
+/* Telugu emotional + funny messages */
+const messages = [
+    "Siggu padindi chalu Bhuvi 😍",
+    "Bhuvi nuvvu na life lo best gift ❤️",
+    "Manam iddaram kaadu… manam oka family 👨‍👩‍👧",
+    "Nee navvu kosam ee page 😄",
+    "Wife + Amma + Queen = Bhuvi 👑",
+    "Ee YES life-long contract 😜",
+    "Love you Bhuvi bangaram ❤️"
+];
 
-  let i = 0;
-  let started = false;
+/* Photos from folder */
+const photos = [
+    "photos/1.jpg",
+    "photos/2.jpg",
+    "photos/3.jpg",
+    "photos/4.jpg"
+];
 
-  function startLove() {
-    if (started) return;
-    started = true;
+let msgIndex = 0;
+let photoIndex = 0;
 
-    document.querySelector("button").style.display = "none";
-    document.getElementById("photo").style.display = "block";
+/* NO button runs away */
+function moveNo(){
+    const btn = document.getElementById("noBtn");
+    btn.style.left = Math.random()*80 + "vw";
+    btn.style.top = Math.random()*80 + "vh";
+}
 
+/* YES clicked */
+function yesClicked(){
+    document.getElementById("yesBtn").style.display="none";
+    document.getElementById("noBtn").style.display="none";
+    document.getElementById("music").play();
+
+    startPhotoSequence();
     showMessage();
-    setInterval(showMessage, 5000);
-    setInterval(createHeart, 600);
-  }
+    setInterval(showMessage, 3000);
+    setInterval(createHeart, 700);
+}
 
-  function showMessage() {
-    const msg = document.getElementById("msg");
-    msg.style.opacity = 0;
+/* Photo sequence */
+function startPhotoSequence(){
+    const img = document.getElementById("photo");
+    img.style.display="block";
+    img.src = photos[0];
 
-    setTimeout(() => {
-      msg.innerText = messages[i];
-      msg.style.animation = "none";
-      void msg.offsetWidth;
-      msg.style.animation = "fadeIn 2s forwards";
-      i = (i + 1) % messages.length;
-    }, 400);
-  }
+    setInterval(()=>{
+        photoIndex = (photoIndex + 1) % photos.length;
+        img.src = photos[photoIndex];
+    }, 5000); // photo every 5 sec
+}
 
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+/* Message loop */
+function showMessage(){
+    const msg = document.getElementById("message");
+    msg.style.opacity=0;
+
+    setTimeout(()=>{
+        msg.innerText = messages[msgIndex];
+        msg.style.opacity=1;
+        msgIndex = (msgIndex + 1) % messages.length;
+    },300);
+}
+
+/* Floating hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerText="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(18+Math.random()*22)+"px";
     document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 6000);
-  }
+    setTimeout(()=>heart.remove(),6000);
+}
 </script>
 
 </body>
